@@ -1,0 +1,106 @@
+<form [formGroup]="carriageForm" class="city-form" (submit)="onSubmitFormHandler()">
+
+  @if (isEditing){
+    <h2 class="title">Edit {{carriage.name}}</h2>
+  } @else {
+    <h2 class="title">Create Carriage</h2>
+  }
+
+
+
+  <tui-input
+    formControlName="name"
+  >
+    name*
+    <input
+      placeholder="Enter name here"
+      tuiTextfieldLegacy
+      type="text"
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="name"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="rows"
+  >
+    rows*
+    <input
+      placeholder="Enter rows here"
+      tuiTextfieldLegacy
+      type="number"
+      max="20"
+      min="0"
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="rows"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="leftSeats"
+  >
+    leftSeats*
+    <input
+      placeholder="Enter leftSeats here"
+      tuiTextfieldLegacy
+      type="number"
+      max="20"
+      min="0"
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="leftSeats"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="rightSeats"
+  >
+    rightSeats*
+    <input
+      placeholder="Enter rightSeats here"
+      tuiTextfieldLegacy
+      type="number"
+      max="20"
+      min="0"
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="rightSeats"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <div class="buttons-container">
+    <button
+      tuiButton
+      type="submit"
+      [disabled]="carriageForm.invalid"
+    >
+      @if (isEditing){
+        Save
+      } @else {
+        Create
+      }
+    </button>
+
+    <button
+      tuiButton
+      appearance="destructive"
+      type="button"
+      (click)="onCloseFormHandler()"
+    >
+      Close
+    </button>
+  </div>
+
+</form>
+
+<app-carriage [carriage]="carriage" [isEditing]="true"/>

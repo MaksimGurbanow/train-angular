@@ -1,0 +1,58 @@
+<div class="carriageContainer">
+  <h2 *ngIf="!forUser">{{carriage.name}}</h2>
+  <div class="carriageInfo" *ngIf="forUser">
+    <div class="carriageIndex" >Car {{index}}</div>
+    <div class="carriageFreeSeats">Seats {{calcAvailableSeats()}}</div>
+  </div>
+  <table class="carriage-table">
+    <tbody>
+      @for (rows of rightRows; track i; let i = $index) {
+      <tr>
+        @for (seat of rows; track j; let j = $index) {
+        @let free = isFree(seat);
+        @let selected = selectedSeat?.seat === seat && selectedSeat?.car === index;
+        <td [class]="{free: forUser && free && !selected, selected: forUser && selected}"
+          (click)="forUser && free ? onSeatClick(seat) : null">
+          {{seat + 1}}
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="aisle">
+    <hr />
+    Aisle
+    <hr />
+  </div>
+
+  <table class="carriage-table">
+    <tbody>
+      @for (rows of leftRows; track i; let i = $index) {
+      <tr>
+        @for (seat of rows; track i; let i = $index) {
+        @let free = isFree(seat);
+        @let selected = selectedSeat?.seat === seat && selectedSeat?.car === index;
+        <td [class]="{free: forUser && free && !selected, selected: forUser && selected}"
+          (click)="forUser && free ? onSeatClick(seat) : null">
+          {{seat + 1}}
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<button
+  appearance="primary"
+  tuiButton
+  size="m"
+  iconStart="@tui.pencil"
+  (click)="onEditHandler()"
+  *ngIf="!forUser && !isEditing"
+>
+</button>
+
+

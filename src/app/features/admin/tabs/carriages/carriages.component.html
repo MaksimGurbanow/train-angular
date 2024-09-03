@@ -1,0 +1,32 @@
+@if (isLoading$ | async ){
+  <tui-loader />
+} @else {
+
+  <button
+    tuiButton
+    type="button"
+    (click)="openFormForCreatingCarriage()"
+  >
+    Add carriage
+  </button>
+
+  @if (carriageForEdit) {
+    <app-carriage-form
+      (closeForm)="closeForm()"
+      [carriage]="carriageForEdit"
+      [isEditing]="true"
+    />
+  } @else if (isCreatingCarriage) {
+    <app-carriage-form
+      (closeForm)="closeForm()"
+      [isEditing]="false"
+    />
+  }
+
+    @for (carriage of carriages$ | async; track carriage.name) {
+      <app-carriage
+        [carriage]="carriage"
+        (editCarriage)="editCarriage($event)"
+      />
+    }
+}

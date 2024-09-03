@@ -1,0 +1,28 @@
+
+<link rel="stylesheet" href="order.component.scss"><p>Order identifier {{order.id}}</p>
+<p>Ride identifier {{order.rideId}}</p>
+<p>Route identifier {{order.rideId}}</p>
+<p>Seat index in the whole train {{order.seatId}}</p>
+<p>User identifier {{order.userId}}</p>
+
+@if (order.status === "active") {
+  <p class="order-status-active">Order status is active</p>
+} @else if (order.status === "rejected"){
+  <p class="order-status-rejected">Order status is rejected</p>
+} @else {
+  <p class="order-status">Order status is {{order.status}}</p>
+}
+
+
+<br />
+
+<p>Carriages:</p>
+
+<ul class="carriages-list">
+  @for(carriage of order.carriages; let i = $index; track i;) {
+    <li>{{carriage}}</li>
+  }
+</ul>
+
+<button tuiButton (click)="deleteOrderHandler()">Delete order</button>
+

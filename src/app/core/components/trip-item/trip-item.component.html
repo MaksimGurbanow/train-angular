@@ -1,0 +1,100 @@
+<div class="tripItem" (click)="moveToDetails()">
+  <div class="informationSection">
+    <div class="tripInformation">
+      <div class="firstStationInfo">
+        <!-- @let firstIndex = getFirstStationIndex(trip);
+        @let lastIndex = getLastStationIndex(trip) - 1; -->
+        <span class="arrivalTime">{{firstStationTime | date:'hh:mm'}}</span>
+        <span class="arrivalDate">{{firstStationTime | date:'MMMM, d'}}</span>
+        <span class="arrivalCity">{{fromStation?.city}}</span>
+      </div>
+      <div class="timeAmountWrapper">
+        <div class="timeAmount">
+          @let timeDifference = calcTimeDifference(firstStationTime, lastStationTime);
+          {{ timeDifference.days }}d
+          {{ timeDifference.hours }}h
+          {{ timeDifference.minutes }}m
+        </div>
+      </div>
+      <div class="lastStationInfo">
+        <span class="arrivalTime">{{lastStationTime | date:'hh:mm'}}</span>
+        <span class="arrivalDate">{{lastStationTime | date:'MMMM, d'}}</span>
+        <span class="arrivalCity">{{toStation?.city}}</span>
+      </div>
+    </div>
+    <div class="routeInformation">
+      <div class="fromToBlock">
+        <tui-icon icon="@tui.material.outlined.train" [style.color]="'var(--tui-status-primary)'" />
+        <span>{{getStationById(paths[0])?.city}}</span>
+        <tui-icon icon="@tui.material.outlined.arrow_forward" [style.color]="'var(--tui-status-primary)'" />
+        <span>{{getStationById(paths[paths.length - 1])?.city}}</span>
+      </div>
+      <button tuiButton tuiChevron type="button" class="buttonOpenModal" (click)="onClick($event)">Route
+      </button>
+    </div>
+  </div>
+  <div class="carriageSection">
+    @for(carriage of makeCarriageUnique(trip.carriages); track carriage) {
+    <div class="carriageItem">
+      <div class="carriageType">Carriage type {{carriage}}</div>
+      <div class="carriageFreeSeatsNumber"></div>
+      <div class="carriageTimeAmount">
+        {{calcTripPrice(segments, carriage)}}
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<div class="routeModal" *ngIf="open" (click)="onClick()">
+  <div class="routesWrapper">
+    <div class="routesControl">
+      <div class="routesId">Route {{trip.id}}</div>
+      <button class="routesCloseButton" tuiButton (click)="onClick($event)">
+        <tui-icon icon="@tui.material.outlined.cancel" />
+      </button>
+    </div>
+    <div class="routesTable">
+      <div class="routesHeader">
+        <div class="routesHeaderItem">Time</div>
+        <div class="routesHeaderItem">Station</div>
+        <div class="routesHeaderItem">Stop</div>
+      </div>
+      <div class="routesRow">
+        <div class="timeItemContent">{{segments[0].time[0] | date:"hh:mm"}}</div>
+        <div class="routeItem first">{{getStationById(paths[0])?.city}}</div>
+        <div class="stopDurationItem">first station</div>
+      </div>
+      @for(segment of segments; track segment.time[0]) {
+      <div class="routesRow" *ngIf="$index !== 0 && $index !== segments.length - 1">
+        <div class="timeItem">
+          <span class="timeItemContent">
+            {{segments[$index - 1].time[1] | date:"hh:mm"}}
+          </span>
+          <span class="timeItemContent">
+            {{segment.time[0] | date:"hh:mm"}}
+          </span>
+        </div>
+        <div class="routeItem">
+          <span class="routeUtemContent">
+            {{getStationById(paths[$index + 1])?.city}}
+          </span>
+        </div>
+        <div class="stopItem">
+          @let timeDifference = calcTimeDifference(segments[$index - 1].time[1], segment.time[0]);
+          <span class="stopItemContent">
+            {{timeDifference.diff | date:"mm"}}m
+          </span>
+        </div>
+      </div>
+      }
+      <div class="routesRow">
+        <div class="timeItemContent">
+          {{segments[segments.length - 1].time[1] | date:"hh:mm"}}
+        </div>
+        <div class="routeItem last">{{getStationById(paths[paths.length - 1])?.city}}</div>
+        <div class="stopDurationItem">last station</div>
+      </div>
+    </div>
+  </div>
+</div>

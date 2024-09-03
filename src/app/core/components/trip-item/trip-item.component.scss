@@ -1,0 +1,213 @@
+.informationSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 10px;
+  flex: 1;
+  padding: 40px 30px;
+  border-bottom: 1px solid #635f5f;
+}
+
+.firstStationInfo, .lastStationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  & .arrivalTime {
+    font-size: 18px;
+    font-weight: 900;
+  }
+  & .arrivalDate {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  & .arrivalCity {
+    font-size: 16px;
+    font-weight: 900;
+  }
+}
+
+.trip {
+  &Item {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    border-radius: 10px;
+    perspective: 500px;
+    box-shadow: 0px 0px 3px 0px #333333;
+    margin: 0 30px;
+    flex-wrap: wrap;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 9px 0px #333333;
+    }
+  }
+  &Information {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.timeAmount {
+  position: absolute;
+  right: 28%;
+  top: -35px;
+  width: 70px;
+  height: 70px;
+  z-index: 1000;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  &Wrapper {
+    width: 200px;
+    position: relative;
+    height: 3px;
+    background: blue;
+    transform: translateY(10px);
+    &::before {
+      top: -250%;
+      left: -13px;
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 5px solid #635f5f;
+    }
+    &::after {
+      top: -250%;
+      right: -13px;
+      content: "";
+      position: absolute;
+      background: #635f5f;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 5px solid #635f5f;
+    }
+  }
+}
+
+.buttonOpenModal {
+  background-color: transparent !important;
+  color: #184d9b;
+  opacity: 0.7;
+  &:hover {
+    overflow: 1;
+  }
+}
+
+.routes {
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    height: 50%;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+  }
+  &Control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+  }
+  &Id {
+    font-size: 16px;
+    font-weight: 900;
+  }
+  &Table {
+    display: grid;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    gap: 5px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &Header, &Row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &CloseButton {
+    background-color: transparent;
+    color: #635f5f;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.time, .route {
+  &Item {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    width: 60px;
+    &Content {
+      font-weight: 500;
+      width: 60px;
+    }
+  }
+}
+
+.routeInformation {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.routeModal {
+  position: fixed;
+  background-color: #33333342;
+  display: flex;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.carriage {
+  &Section {
+    display: flex;
+    flex: 1;
+  }
+  &Type {
+    font-weight: 900;
+  }
+  &Item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 15px;
+    border-left: 1px solid #635f5f;
+  }
+}
+
+@media (max-width: 500px) {
+  .from-to-block {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+

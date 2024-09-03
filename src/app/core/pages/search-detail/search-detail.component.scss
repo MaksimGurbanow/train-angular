@@ -1,0 +1,245 @@
+.arrowIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.searchDetails {
+  &Page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
+  &Header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+  }
+  &TripInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+  }
+  &Content {
+    display: flex;
+    flex-direction: column;
+    background-color: #b8b1b14d;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+  }
+  &Legend {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-self: flex-start;
+    margin: 10px;
+  }
+}
+
+.legendBlock {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+}
+
+.legend {
+  &Item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  &Content {
+    border: 1px solid #635f5f;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    &.freeSeat {
+      background: blue;
+      color: white;
+    }
+    &.bookedSeat {
+      background: rgb(214, 133, 3);
+      color: white;
+    }
+  }
+}
+
+.stationTimeBlock, .rideRouteBlock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stationBlock, .timeBlock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1em;
+}
+
+.rideId {
+  font-weight: 500;
+}
+
+.buttonOpenModal {
+  background-color: transparent !important;
+  color: #184d9b;
+  opacity: 0.7;
+  &:hover {
+    overflow: 1;
+  }
+}
+
+.routeModal {
+  position: fixed;
+  background-color: #33333342;
+  display: flex;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.routes {
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    height: 50%;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+  }
+  &Control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+  }
+  &Id {
+    font-size: 16px;
+    font-weight: 900;
+  }
+  &Table {
+    display: grid;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    gap: 5px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &Header, &Row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &CloseButton {
+    background-color: transparent;
+    color: #635f5f;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.time, .route {
+  &Item {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    &Content {
+      font-weight: 500;
+    }
+  }
+}
+
+
+.backButton {
+  border-radius: 5px;
+  border: 1px solid #635f5f;
+}
+
+.searchDetailsCarriageTabs {
+  margin: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.carriage {
+  &Type {
+    font-weight: 900;
+  }
+  &Index {
+    font-weight: 700;
+    font-size: 16px
+  }
+  &List {
+    margin: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  &Item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    border-radius: 10px;
+    &.active {
+      color: #184d9b;
+      border-bottom: 1px solid #184d9b;
+    }
+  }
+}
+
+.order {
+  &Modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 20px;
+    background: white;
+    padding: 10px 25px;
+    font-weight: 700;
+    gap: 5px;
+    top: 50%;
+  }
+  &Info {
+    display: flex;
+    gap: 5px;
+  }
+  &Cancel {
+    background: transparent;
+    border: none;
+  }
+}

@@ -1,0 +1,39 @@
+@if(isLoading$ | async ){
+  <tui-loader />
+} @else {
+  <div class="buttons-container">
+    <button
+      tuiButton (click)="onCloseRouteDetails()"
+      iconStart="@tui.arrow-left"
+    ></button>
+
+    <button tuiButton (click)="onCreateRideHandler()">Create ride</button>
+  </div>
+
+  @if(rideForEdit){
+    <app-ride-form
+      [rideForEdit]="rideForEdit"
+      [routeId]="routeId"
+      (closeForm)="closeFormHandler()"
+    ></app-ride-form>
+  } @else if (isCreatingRide){
+    <app-ride-form
+      [routeId]="routeId"
+      (closeForm)="closeFormHandler()"
+    ></app-ride-form>
+  }
+
+
+  @for(scheduleItem of (route$ | async)?.schedule; let i = $index; track i){
+    <app-ride
+      [scheduleItem]="scheduleItem"
+      [route]="route$ | async"
+      (editRide)="setRideForEdit($event)"
+    ></app-ride>
+  }
+
+  @if((route$ | async)?.schedule?.length === 0){
+    <h2>No rides. You can create one using the button above</h2>
+  }
+
+}

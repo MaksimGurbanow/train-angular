@@ -1,0 +1,7 @@
+@for(order of (orders$ | async); let i = $index; track i) {
+  <app-order [order]="order" (deleteOrder)="deleteOrder($event)"></app-order>
+}
+
+@if (!(orders$ | async)?.length) {
+  <h2 class="no-orders-message">No orders</h2>
+}

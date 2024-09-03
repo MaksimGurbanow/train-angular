@@ -1,0 +1,45 @@
+<main class="profilePage">
+  <h1 class="sessionManagementHeader">Profile</h1>
+
+  <h3 class="role">{{(userService.userProfile | async)?.role}}</h3>
+  <button class="changePasswordButton" (click)="handleClick('password')">Change password</button>
+
+  <form [formGroup]="profileForm" class="profileForm">
+    <div class="inputContainer">
+      <p class="inputBlock">
+        <tui-input formControlName="email" [readOnly]="!emailIsEditable()">
+          Email:
+          <input placeholder="Update your email here" tuiTextfieldLegacy />
+        </tui-input>
+        <tui-error formControlName="email" [error]="[] | tuiFieldError | async" />
+      </p>
+      <button (click)="handleClick('email')"><tui-icon
+          [icon]="emailIsEditable() ? '@tui.material.outlined.check' : '@tui.material.outlined.edit'"
+          [style.color]="'var(--tui-status-negative)'" /></button>
+    </div>
+    <div class="inputContainer">
+      <p class="inputBlock">
+        <tui-input formControlName="name" class="tuiInput" [readOnly]="!nameIsEditable()">
+          Name:
+          <input placeholder="Update your name here" tuiTextfieldLegacy />
+        </tui-input>
+      </p>
+      <button (click)="handleClick('name')"><tui-icon
+          [icon]="nameIsEditable() ? '@tui.material.outlined.check' : '@tui.material.outlined.edit'"
+          [style.color]="'var(--tui-status-negative)'" /></button>
+    </div>
+  </form>
+
+  <div class="changePasswordModal" *ngIf="passwordIsEditable()" (click)="handleClick('password')">
+    <div class="changePasswordContent" (click)="stopPropagation($event)">
+      <h1 class="changePasswordHeader">Change Password</h1>
+      <tui-input [formControl]="newPassword" class="changePasswordInput">
+        New Password:
+        <input type="text" id="newPassword" tuiTextfieldLegacy placeholder="Type new password here">
+      </tui-input>
+      <button class="changePasswordButton" (click)="handlePasswordChange()">Save</button>
+    </div>
+  </div>
+
+  <button class="sessionManagementLogout" (click)="handleLogout()">Logout</button>
+</main>

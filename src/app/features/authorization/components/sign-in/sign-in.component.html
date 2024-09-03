@@ -1,0 +1,48 @@
+<form [formGroup]="signInForm" class="sign-in-form">
+  <h3>SignIn</h3>
+
+  <tui-input
+    formControlName="email"
+  >
+    Email*
+    <input
+      placeholder="Enter email here"
+      tuiTextfieldLegacy
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    *ngIf="theFormHasBeenSubmitted"
+    formControlName="email"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="password"
+  >
+    Password*
+    <input
+      placeholder="Enter password here"
+      tuiTextfieldLegacy
+      type="password"
+    />
+  </tui-input>
+  <tui-error
+    *ngIf="theFormHasBeenSubmitted"
+    formControlName="password"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <p *ngIf="authService.authError$ | async">{{ authService.authError$ | async }}</p>
+
+  <button
+    size="m"
+    tuiButton
+    type="submit"
+    class="tui-space_top-4"
+    (click)="onFormSubmitHandler()"
+  >
+    Submit
+  </button>
+</form>
+

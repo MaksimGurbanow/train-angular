@@ -1,0 +1,144 @@
+@if (ride() && segments().length) {
+<div class="searchDetailsPage">
+  <div class="searchDetailsHeader">
+    <button class="backButton" (click)="goBack()"><tui-icon icon="@tui.material.outlined.chevron_left" /></button>
+    <div class="searchDetailsTripInfo">
+      <div class="stationTimeBlock">
+        <div class="stationBlock">
+          <span class="cityFrom">{{from()}}</span>
+          <tui-icon icon="@tui.material.outlined.arrow_forward" class="arrowIcon" />
+          <span class="cityTo">{{to()}}</span>
+        </div>
+        <div class="timeBlock">
+          <span class="departureDate">
+            {{segments()[0].time[1] | date:"MMMM d, hh:mm"}}
+          </span>
+          <tui-icon icon="@tui.material.outlined.arrow_forward" class="arrowIcon" />
+          <span class="arrivalDate">
+            {{segments()[segments().length - 1].time[0] | date:"MMMM d, hh:mm"}}
+          </span>
+        </div>
+      </div>
+      <div class="rideRouteBlock">
+        <span class="rideId">Ride {{ride()?.rideId}}</span>
+        <button tuiButton tuiChevron type="button" class="buttonOpenModal" (click)="onClick($event)">Route
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="searchDetailsContent">
+    <div class="searchDetailsCarriageTabs">
+        @for(carriage of carriageTypes(); track carriage) {
+          <div class="carriageItem" (click)="onTabClick(carriage)" [class.active]="activeCarriageType() === carriage">
+            <div class="carriageType">Carriage type {{carriage}}</div>
+            <div class="carriageFreeSeatsNumber"></div>
+            <div class="carriageTimeAmount">
+              {{calcTripPrice(carriage)}}
+            </div>
+          </div>
+        }
+    </div>
+    <div class="carriageList">
+      @for(car of filteredCarriages(); track car.index) {
+        <div class="carriageItem">
+          <app-carriage
+            [forUser]="true"
+            [carriage]="getCarriageByType(car.type)!"
+            [occupiedSeats]="definedOccupiedSeats()"
+            [span]="calcSpan(car.index - 1)"
+            [index]="car.index"
+            [price]="calcTripPrice(car.type)"
+          />
+        </div>
+    span: number,
+  }
+    </div>
+    <div class="searchDetailsLegend">
+      <h4>Legend</h4>
+      <div class="legendBlock">
+        <div class="legendItem">
+          <span class="legendContent occupiedSeat">1</span>
+          Reserved seat
+        </div>
+        <div class="legendItem">
+          <span class="legendContent freeSeat">1</span>
+          Available seat
+        </div>
+        <div class="legendItem">
+          <span class="legendContent bookedSeat">1</span>
+          Selected seat
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="orderModal" *ngIf="selectedSeat()">
+  <div class="orderInfo">
+    <div class="orderSeat">Car {{selectedSeat()?.car}}, Seat {{(selectedSeat()?.seat || 0) + 1}}</div>
+    <div class="orderPrice">{{selectedSeat()?.price}}</div>
+    <button class="orderCancel" (click)="cancelOrder()"><tui-icon icon="@tui.material.outlined.cancel"/></button>
+  </div>
+  <button tuiButton (click)="bookTrip()">
+    Book trip
+  </button>
+</div>
+
+  <div class="routeModal" *ngIf="open" (click)="onClick()">
+    <div class="routesWrapper">
+      <div class="routesControl">
+        <div class="routesId">Route {{ride()?.rideId}}</div>
+        <button class="routesCloseButton" tuiButton (click)="onClick($event)">
+          <tui-icon icon="@tui.material.outlined.cancel" />
+        </button>
+      </div>
+      <div class="routesTable">
+        <div class="routesHeader">
+          <div class="routesHeaderItem">Time</div>
+          <span></span>
+          <div class="routesHeaderItem">Station</div>
+          <div class="routesHeaderItem">Stop</div>
+        </div>
+        <div class="routesRow">
+          <div class="timeItemContent">{{(segments()[0].time[1] || 0) | date:"hh:mm"}}</div>
+          <div class="routeItem first">{{getStationById(paths()[0])?.city}}</div>
+          <div class="stopDurationItem">first station</div>
+        </div>
+        @for(segment of segments(); track segment.time[0]) {
+        <div class="routesRow" *ngIf="$index !== 0 && $index !== segments().length">
+          <div class="timeItem">
+            <span class="timeItemContent">
+              {{segments()[$index - 1].time[1] | date:"hh:mm"}}
+            </span>
+            <span class="timeItemContent">
+              {{segment.time[0] | date:"hh:mm"}}
+            </span>
+          </div>
+          <div class="routeItem">
+            <span class="routeUtemContent">
+              {{getStationById(paths()[$index + 1])?.city}}
+            </span>
+          </div>
+          <div class="stopItem">
+            @let timeDifference = calcTimeDifference(segments()[$index - 1].time[1], segment.time[0]);
+            <span class="stopItemContent">
+              {{timeDifference.diff | date:"mm"}}m
+            </span>
+          </div>
+        </div>
+      }
+      <div class="routesRow">
+        <div class="timeItemContent">
+          {{segments()[segments().length - 1].time[1] | date:"hh:mm"}}
+        </div>
+        <div class="routeItem last">{{getStationById(paths()[paths().length - 1])?.city}}</div>
+        <div class="stopDurationItem">last station</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+} @else {
+  <tui-loader />
+}

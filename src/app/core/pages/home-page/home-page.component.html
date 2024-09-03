@@ -1,0 +1,119 @@
+@if (isLoading$ | async ){
+  <tui-loader />
+} @else {
+  <div class="searchPage">
+    <form [formGroup]='searchForm' (submit)="formSubmitHandler()">
+      <div class='block-search'>
+        <div class="from-to-block">
+          <tui-combo-box
+            tuiTextfieldSize="s"
+            formControlName="from"
+            [valueContent]="content"
+            (searchChange)="onFromSearchChange($event)"
+            *tuiLet="countriesFrom$ | async as countriesFrom"
+            class="input-box"
+            >
+            
+            From
+            <input
+              placeholder="Type a name"
+              tuiTextfieldLegacy
+              (input)="onFromSearchChange(extractValueFromEvent($event))"
+            />
+            <tui-data-list-wrapper
+              *tuiDataList
+              [itemContent]="content"
+              [items]="countriesFrom"
+            />
+          </tui-combo-box>
+          <button class="switch-routes-button" (click)="switchRoutes()">
+            <tui-icon
+            class="swap-icon"
+            icon="@tui.material.outlined.swap_horiz"
+            [style.color]="'var(--tui-text-action)'" />
+          </button>
+          <tui-combo-box
+            tuiTextfieldSize="s"
+            formControlName="to"
+            [valueContent]="content"
+            (searchChange)="onFromSearchChange($event)"
+            *tuiLet="countriesTo$ | async as countriesTo"
+            class="input-box"
+          >
+    
+            To
+            <input
+              placeholder="Type a name"
+              tuiTextfieldLegacy
+              (input)="onFromSearchChange(extractValueFromEvent($event))"
+            />
+            <tui-data-list-wrapper
+              *tuiDataList
+              [itemContent]="content"
+              [items]="countriesTo"
+            />
+          </tui-combo-box>
+        </div>
+        <ng-template
+          #content
+          let-data
+        >
+          <div class="template">
+            <div class="name">{{ data.city }}</div>
+          </div>
+        </ng-template>
+  
+        <tui-input-date
+          formControlName="dateValue"
+          tuiUnfinishedValidator="Finish filling the field"
+          class="date-input"
+        >
+          Choose a date
+        </tui-input-date>
+  
+  
+        <button type="submit" tuiButton [disabled]="!searchForm.valid">Search</button>
+      </div>
+    </form>
+    @if (filterDates().length) {
+      <div class="tabsWrapper">
+        <button class="prevDates" tuiButton (click)="scrollLeft()">
+          <tui-icon icon="@tui.material.outlined.arrow_back_ios"
+          [style.color]="'var(--tui-text-secondary) !important'"
+          />
+        </button>
+        <tui-tabs [activeItemIndex]="activeItemIndex()" class="dateTabs">
+          @for (filterDate of filterDates(); track filterDate.getDate()) {
+            <button tuiTab class="buttonDateFilter" (click)="setFilterDate(filterDate.getTime())">
+              <span class="filterDate">{{filterDate.toLocaleString('en-US', { month: 'long' })}} {{filterDate.getDate()}}</span>
+              <span class="filterWeekday">{{filterDate.toLocaleString('en-US', { weekday: 'long' })}}</span>
+            </button>
+          }
+      </tui-tabs>
+      <button class="nextDates" tuiButton (click)="scrollRight()">
+        <tui-icon icon="@tui.material.outlined.arrow_forward_ios"
+        [style.color]="'var(--tui-text-secondary) !important'"
+        />
+      </button>
+      </div>
+    }
+    @if (filteredTrips().length) {
+      <div class="tripList">
+        @for (trip of filteredTrips(); track trip.id;) {
+          <app-trip-item
+            [trip]="trip"
+            [fromStation]="fromStation()"
+            [toStation]="toStation()"
+          />
+          }
+      </div>
+    } @else {
+      <div class="emptyListresponse" #emptyList>
+        <h3>No direct trains found</h3>
+        <div>No seats on direct trains are available right now, but there is always a hope. Try again or travel with a transfer</div>
+      </div>
+    }
+  </div>
+}
+
+

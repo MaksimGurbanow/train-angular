@@ -1,0 +1,110 @@
+
+.block-search {
+  display: grid;
+  grid-row: 1;
+  grid-gap: 15px;
+  grid-template-columns: 4fr 2fr 1fr;
+  padding: 0 30px;
+  margin: 0 auto;
+  justify-content: center;
+
+}
+
+.from-to-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  position: relative;
+}
+
+.input-box {
+  flex: 1;
+  height: auto;
+  &.t-hosted {
+    &.t-textfield {
+      &[data-appearance="textfield"] {
+        padding: 0 10px;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+.switch-routes-button {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 10;
+  border-color: #6788ff;
+}
+.tabsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.prevDates, .nextDates {
+  background: transparent;
+  opacity: 0.5;
+  flex: 1;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.dateTabs {
+  margin: 20px 0;
+  flex: 20;
+}
+
+.buttonDateFilter {
+  display: flex;
+  width: 25%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter {
+  &Date {
+    font-weight: 900;
+  }
+}
+
+.tripList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+/* Сетка для планшетов */
+@media (max-width: 720px) {
+ .block-search {
+   grid-template-columns: repeat(1, 1fr); /* 2 колонки */
+   padding: 15px;
+ }
+}
+
+@media (max-width: 500px) {
+  .from-to-block {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .switch-routes-button {
+    left: 100%;
+    right: 0;
+    transform: translate(-100%, -50%);
+  }
+  .swap-icon {
+    transform: rotateZ(90deg);
+  }
+}
+

@@ -1,0 +1,28 @@
+<div class="ride-header">
+  <h2 class="ride-title">Ride - {{scheduleItem.rideId}}</h2>
+  <button iconStart="@tui.trash" tuiButton (click)="deleteRideHandler()"></button>
+  <button iconStart="@tui.pencil" tuiButton (click)="editRideHandler()"></button>
+</div>
+
+<div class="ride-wrapper">
+  @for (city of route?.path; track i; let i = $index) {
+    <div class="ride-city">{{city.city}}</div>
+    @if (scheduleItem && scheduleItem.segments[i]){
+      <div class="ride-schedule">
+        <p>Departure: {{scheduleItem.segments[i].time[0] | date: 'medium'}}</p>
+        <p>Arrival: {{scheduleItem.segments[i].time[1] | date: 'medium'}}</p>
+      </div>
+      <div class="ride-carriage-prices">
+        @for(priceItem of Object.entries(scheduleItem.segments[i].price); let i = $index; track i; ) {
+          <p>{{priceItem[0]}}: {{priceItem[1] | currency}}</p>
+        }
+      </div>
+    }
+  }
+</div>
+
+
+
+
+
+

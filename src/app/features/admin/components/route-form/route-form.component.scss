@@ -1,0 +1,72 @@
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formWrapper{
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.stations, .carriages{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  flex: 1;
+}
+
+.stations-item, .carriages-item{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: .2rem;
+
+  tui-select{
+    width: 100%;
+  }
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.wrapper{
+  display: flex;
+  width: 100%;
+  gap: .5rem;
+}
+
+.input-wrapper{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-header{
+  display: flex;
+  align-self: center;
+  font: var(--tui-font-heading-3)
+}
+
+.form-sub-header{
+  font: var(--tui-font-heading-6)
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+
+@media screen and (max-width: 768px) {
+  .formWrapper{
+    gap: .1rem;
+    padding: .1rem;
+  }
+}

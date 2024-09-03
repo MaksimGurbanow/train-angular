@@ -1,0 +1,46 @@
+<form [formGroup]="rideForm" (submit)="onFormSubmitHandler()" class="ride-form">
+  <div formArrayName="segments" *tuiLet="route$ | async as route">
+    <div *ngFor="let segment of segments.controls; let i = index" [formGroupName]="i">
+      <div class="segment">
+        <p>{{route?.path?.[i]?.city}}</p>
+        <div class="time">
+          <div class="time-item">
+            <label for="departure-{{i}}">Departure</label>
+            <input id="departure-{{i}}" formControlName="departure" type="datetime-local">
+          </div>
+
+          <div class="time-item">
+            <label for="arrival-{{i}}">Arrival</label>
+            <input id="arrival-{{i}}" formControlName="arrival" type="datetime-local">
+          </div>
+        </div>
+        <div class="prices" formGroupName="price">
+          <div *ngFor="let key of getPriceKeys(segment.get('price'))">
+            <tui-input
+              [formControlName]="key"
+              type="number"
+              tuiTextfieldSize="m"
+            >
+              Price for {{key}}
+              <input
+                placeholder="Enter price here"
+                tuiTextfieldLegacy
+              />
+              <span class="tui-required"></span>
+            </tui-input>
+            <tui-error
+              [formControlName]="key"
+              [error]="[] | tuiFieldError | async"
+            />
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-buttons-wrapper">
+      <button tuiButton type="button" appearance="destructive" (click)="onCloseFormHandler()">Close</button>
+      <button tuiButton type="submit" [disabled]="rideForm.invalid">Submit</button>
+    </div>
+  </div>
+</form>

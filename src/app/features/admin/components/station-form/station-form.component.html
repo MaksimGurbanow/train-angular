@@ -1,0 +1,104 @@
+@if (selectedStation | async; as station){
+
+  <div class="city-details">
+    <h3>City: {{station.city}}</h3>
+    <p>lat: {{station.latitude}}</p>
+    <p>lng: {{station.longitude}}</p>
+
+    <button
+      tuiButton
+      (click)="deleteStation(station)"
+      appearance="destructive"
+    >
+      Delete chosen station
+    </button>
+  </div>
+
+  <hr />
+} @else {
+  <h2 class="country-not-selected-message">
+    select a station by clicking on the marker on the map
+  </h2>
+}
+
+<hr />
+
+<form [formGroup]="cityForm" class="city-form" (submit)="createStation()">
+  <h3>Add new station</h3>
+  <tui-input
+    formControlName="city"
+  >
+    city*
+    <input
+      placeholder="Enter city here"
+      tuiTextfieldLegacy
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="city"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="lng"
+  >
+    lng
+    <input
+      placeholder="Enter lng here"
+      tuiTextfieldLegacy
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="lng"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <tui-input
+    formControlName="lat"
+  >
+    lat
+    <input
+      placeholder="Enter lat here"
+      tuiTextfieldLegacy
+    />
+    <span class="tui-required"></span>
+  </tui-input>
+  <tui-error
+    formControlName="lat"
+    [error]="[] | tuiFieldError | async"
+  />
+
+
+  <tui-multi-select
+    placeholder="Ignored text"
+    [editable]="false"
+    formControlName="relations"
+    [tuiTextfieldLabelOutside]="true"
+    [(search)]="search"
+  >
+    Relations
+    <tui-data-list-wrapper
+      *tuiDataList
+      tuiMultiSelectGroup
+      [items]="filter(search)"
+    />
+  </tui-multi-select>
+  <tui-error
+    formControlName="relations"
+    [error]="[] | tuiFieldError | async"
+  />
+
+
+  <div class="buttons-container">
+    <button
+      tuiButton
+      type="submit"
+      [disabled]="cityForm.invalid"
+    >
+      add city
+    </button>
+  </div>
+</form>
+

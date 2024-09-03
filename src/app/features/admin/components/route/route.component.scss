@@ -1,0 +1,17 @@
+:host{
+  display: block;
+  border: 1px solid var(--tui-text-action);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+h2{
+  font: var(--tui-font-text-xl)
+}
+
+.buttons-container{
+  display: flex;
+  gap: 1rem;
+}
+

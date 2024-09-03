@@ -1,0 +1,48 @@
+@if (isLoading$ | async ){
+  <tui-loader />
+} @else {
+
+  @if (routeId){
+    <app-rides
+      [routeId]="routeId"
+      (closeRouteDetails)="setRouteId(null)"
+    />
+  } @else {
+    <button
+      tuiButton
+      type="button"
+      (click)="onCreateRouteHandler()"
+    >
+      Create route
+    </button>
+
+    @if(isFormOpen){
+      @if (routeForEditing){
+        <app-route-form
+          [routeForEditing]="routeForEditing"
+          [isCreating]="false"
+          (closeForm)="onCLoseFormHandler()"
+        ></app-route-form>
+      } @else {
+        <app-route-form [isCreating]="true" (closeForm)="onCLoseFormHandler()"></app-route-form>
+      }
+    }
+
+    @for(route of routes$ | async | slice: paginationIndex * 5 : paginationIndex * 5 + 5; track route.id){
+      <app-route
+        [route]="route"
+        (editRoute)="onEditRoute($event)"
+        (setRouteId)="setRouteId($event)"
+      ></app-route>
+    }
+
+    <tui-pagination
+      [index]="paginationIndex"
+      [length]="paginationLength"
+      (indexChange)="goToPage($event)"
+    />
+  }
+
+
+}
+

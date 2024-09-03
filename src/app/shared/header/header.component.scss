@@ -1,0 +1,28 @@
+:host{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  margin: 0 2rem;
+
+  a{
+    font: var(--tui-font-heading-6)
+  }
+}
+
+.signInUpContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  :host {
+    margin: 0 .2rem;
+    padding: 0 .2rem;
+    a {
+      font: var(--tui-font-heading-6)
+    }
+  }
+}

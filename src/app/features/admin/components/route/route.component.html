@@ -1,0 +1,18 @@
+<div class="buttons-container">
+  <button tuiButton size="s" (click)="editRouteHandler()">edit</button>
+  <button tuiButton size="s" (click)="setRouteIdHandler()">assign</button>
+  <button tuiButton size="s" (click)="removeRoute()">delete</button>
+</div>
+
+<h2>Route id - {{route.id}}</h2>
+
+<h2>Carriages:</h2>
+@for(carriage of currentCarriages$ | async; let i = $index; track i){
+  {{carriage?.name}}
+}
+
+
+<h2>Cities:</h2>
+@for(pathId of currentStations$ | async; let i = $index; track i){
+  {{pathId?.city}}
+}

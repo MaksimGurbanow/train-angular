@@ -1,0 +1,48 @@
+:host{
+  display: block;
+  padding: 20px;
+
+  h3{
+    font: var(--tui-font-heading-4)
+  }
+}
+
+.city-form{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 500px;
+  margin: 1rem;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  button {
+    flex: 1;
+    margin: 0 5px;
+  }
+}
+
+.city-details{
+  margin: 1rem;
+
+  p{
+    font: var(--tui-font-text-xl)
+  }
+}
+
+.country-not-selected-message{
+  display: block;
+  margin: 100px auto;
+}
+
+
+@media screen and (max-width: 600px) {
+  .city-form{
+    width: 100%;
+    margin: 0;
+  }
+}

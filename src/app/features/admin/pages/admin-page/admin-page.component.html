@@ -1,0 +1,25 @@
+<tui-tabs [(activeItemIndex)]="activeItemIndex">
+  <button tuiTab>
+    Stations
+  </button>
+  <button tuiTab>
+    Carriages
+  </button>
+  <button tuiTab>
+    Routes
+  </button>
+</tui-tabs>
+
+@switch (activeItemIndex){
+  @case(0){
+    <app-stations />
+  }
+  @case(1){
+    <app-carriages />
+  }
+  @case(2){
+    <app-routes />
+  }
+}
+
+

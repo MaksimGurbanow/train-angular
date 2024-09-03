@@ -1,0 +1,155 @@
+<form [formGroup]="routeForm" class="formContainer" (submit)="formSubmitHandler()">
+
+  @if (routeForEditing){
+    <h2 class="form-header">Edit route</h2>
+  } @else {
+    <h2 class="form-header">Add new route</h2>
+  }
+
+  <div class="formWrapper">
+  <div formArrayName="stations" class="stations">
+    <h3 class="form-sub-header">Stations</h3>
+    <div
+      *ngFor="let station of stationsControls.controls; let i = index"
+      [formGroupName]="i"
+      class="stations-item"
+    >
+
+      <div class="wrapper">
+        <div class="input-wrapper">
+          <tui-select
+            class="tui-space_vertical-4"
+            [tuiTextfieldLabelOutside]="true"
+            [valueContent]="stationsItemTemplate"
+            formControlName="station"
+            tuiTextfieldSize="s"
+          >
+            Select station
+            <tui-data-list-wrapper
+              *tuiDataList
+              [itemContent]="stationsItemTemplate"
+              [items]="stations$ | async"
+            />
+          </tui-select>
+          <tui-error
+            formControlName="station"
+            [error]="[] | tuiFieldError | async"
+          />
+        </div>
+
+        <button
+          type="button"
+          (click)="removeStation(i)"
+          [disabled]="stationsControls.controls.length < 4"
+          appearance="primary"
+          tuiButton
+          iconStart="@tui.trash"
+          size="s"
+        >
+        </button>
+      </div>
+
+    </div>
+
+    <button type="button" (click)="addStation()" tuiButton>add station</button>
+
+    </div>
+
+
+    <div formArrayName="carriages" class="carriages">
+      <h3 class="form-sub-header">Carriages</h3>
+
+      <div
+        *ngFor="let carriage of carriagesControls.controls; let i = index"
+        [formGroupName]="i"
+        class="carriages-item"
+      >
+        <div class="wrapper">
+          <div class="input-wrapper">
+            <tui-select
+              class="tui-space_vertical-4"
+              [tuiTextfieldLabelOutside]="true"
+              [valueContent]="carriageItemTemplate"
+              formControlName="carriage"
+              tuiTextfieldSize="s"
+            >
+              Select carriage
+              <tui-data-list-wrapper
+                *tuiDataList
+                [itemContent]="carriageItemTemplate"
+                [items]="carriages$ | async"
+              />
+            </tui-select>
+            <tui-error
+              formControlName="carriage"
+              [error]="[] | tuiFieldError | async"
+            />
+          </div>
+
+          <button type="button"
+                  (click)="removeCarriage(i)"
+                  [disabled]="carriagesControls.controls.length < 4"
+                  appearance="primary"
+                  tuiButton
+                  iconStart="@tui.trash"
+                  size="s"
+          >
+          </button>
+        </div>
+
+    </div>
+      <button type="button" (click)="addCarriage()" tuiButton>add carriage</button>
+
+    </div>
+
+  </div>
+
+  <div class="buttons-container">
+
+    <button
+      type="button"
+      tuiButton
+      size="xl"
+      appearance="destructive"
+      (click)="closeFormHandler()"
+    >
+      close
+    </button>
+
+    <button
+      type="submit"
+      tuiButton
+      [disabled]="stationsControls.controls.length < 3|| carriagesControls.controls.length < 3 || !routeForm.valid"
+      size="xl"
+    >
+      submit
+    </button>
+  </div>
+
+</form>
+
+
+
+
+<ng-template
+  #stationsItemTemplate
+  let-station
+>
+        <span tuiCell>
+            <span tuiTitle>
+                {{ station.city }}
+            </span>
+        </span>
+</ng-template>
+
+
+<ng-template
+  #carriageItemTemplate
+  let-carriage
+>
+        <span tuiCell>
+            <span tuiTitle>
+                {{ carriage.code }}
+            </span>
+        </span>
+</ng-template>

@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+
+  border: 2px solid var(--tui-chart-categorical-10);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.title{
+  text-align: center;
+}
+
+.city-form{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 200px;
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+app-carriage{
+  width: 100%;
+}
+
+@media (max-width: 1250px) {
+
+  :host {
+    padding: .2rem;
+    margin: 0;
+  }
+
+  .city-form{
+    width: 80px;
+  }
+
+  .buttons-container{
+    flex-direction: column;
+  }
+}

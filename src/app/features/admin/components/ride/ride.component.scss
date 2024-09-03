@@ -1,0 +1,34 @@
+.ride-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font: var(--tui-font-heading-1)
+}
+
+.ride-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 3rem;
+
+  p {
+    font: var(--tui-font-text-l)
+  }
+}
+
+.ride-schedule {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ride-carriage-prices, .ride-city{
+  padding: 1rem;
+}
+
+.ride-city {
+  display: flex;
+  justify-content: center;
+  font: var(--tui-font-heading-4)
+}
+

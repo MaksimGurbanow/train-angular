@@ -1,0 +1,12 @@
+@if (isLoading$ | async ){
+  <tui-loader />
+} @else {
+  <div class="wrapper">
+    <div class="map">
+      <app-map />
+    </div>
+    <div class="city-info">
+      <app-station-form></app-station-form>
+    </div>
+  </div>
+}
